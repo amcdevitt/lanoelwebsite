@@ -1,4 +1,4 @@
-lanoelApp.controller('TournamentController', function($scope, $http, $routeParams, $filter, lanoelService) {
+lanoelApp.controller('TournamentController', function($scope, $http, $routeParams, $filter, lanoelService, $interval) {
 	$scope.tournament = null;
 	$scope.scores = [];
 	$scope.rounds = [];
@@ -8,24 +8,7 @@ lanoelApp.controller('TournamentController', function($scope, $http, $routeParam
 	{
 		lanoelService.getLanoelTournament().then(function (result) {
 			$scope.tournament = result;
-			$scope.scores = $scope.tournament.scores;
-
-
-			for (var i = 0; i < $scope.tournament.rounds.length ; i++)
-			{
-				var tempPlaces = [];
-				for(var j = 0; j < $scope.tournament.rounds[i].places.length; j++)
-				{
-					if($scope.tournament.rounds[i].places[j].place != 99)
-					{
-						tempPlaces.push($scope.tournament.rounds[i].places[j]);
-					}
-				}
-				$scope.tournament.rounds[i].places = tempPlaces;
-			}
-
-			$scope.rounds = $scope.tournament.rounds;
-			$scope.selectedRound = $scope.rounds[0];
+			$scope.selectedRound = $scope.tournament.rounds[0];
 		});
 	}
 
@@ -35,4 +18,6 @@ lanoelApp.controller('TournamentController', function($scope, $http, $routeParam
 	{
 		$scope.selectedRound = round;
 	}
+
+	$interval($scope.refresh, 5000);
 });

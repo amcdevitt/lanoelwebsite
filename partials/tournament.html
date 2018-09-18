@@ -16,16 +16,16 @@
                      <b>
                         <h4>
                             <th>Place</th>
-                           <th>Player</th>
+                           <th>Team</th>
                            <th>Score</th>
                      </b>
                      </h4>
                   </tr>
                </thead>
                <tbody>
-                  <tr ng-repeat="score in scores | orderBy:'-score'" >
+                  <tr ng-repeat="score in tournament.scores | orderBy:'-score'" >
                       <td>{{$index + 1}}</td>
-                     <td>{{ score.personName }}</td>
+                     <td>{{ score.personName }} ({{score.participant.participantDescription}})</td>
                      <td>{{ score.score }}</td>
                   </tr>
                </tbody>
@@ -37,7 +37,7 @@
             <center>Rounds</center>
          </h3>
          <ul class="nav nav-tabs">
-            <li class="" ng-repeat="round in rounds" ng-click="onTabClick(round)" ng-class="{active:$first}"><a data-toggle="tab" aria-expanded="false">{{ round.game.gameName }}</a></li>
+            <li class="" ng-repeat="round in tournament.rounds" ng-click="onTabClick(round)" ng-class="{active:$first}"><a data-toggle="tab" aria-expanded="false">{{ round.game.gameName }}</a></li>
          </ul>
          <div id="myTabContent" class="tab-content">
             <div class="tab-pane fade active in" id="round.roundNumber">
@@ -47,8 +47,7 @@
                         <b>
                            <h5>
                               <th>Place</th>
-                              <th>Person</th>
-                              <th>Point Value</th>
+                              <th>Team</th>
                         </b>
                         </h5>
                      </tr>
@@ -56,8 +55,7 @@
                   <tbody>
                      <tr ng-repeat="place in selectedRound.places | orderBy:'place' | filter:{pointValue: '!99'}" >
                         <td>{{ place.place }}</td>
-                        <td>{{ place.person }}</td>
-                        <td>{{ place.pointValue }}</td>
+                        <td>{{ place.participant.participantName }} ({{ place.participant.participantDescription }})</td>
                      </tr>
                   </tbody>
                </table>

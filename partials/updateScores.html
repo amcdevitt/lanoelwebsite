@@ -5,12 +5,9 @@
 				<center>Rounds</center>
 			</h3>
 			<ul class="nav nav-tabs">
-				<li class="" ng-repeat="round in rounds" ng-click="onTabClick(round)" ng-class="{active:$first}"><a data-toggle="tab" aria-expanded="false">{{ round.game.gameName }}</a></li>
+				<li style="cursor:pointer" ng-repeat="round in rounds" ng-click="onTabClick(round)" ng-class="{active:$first}"><a data-toggle="tab" aria-expanded="false">{{ round.game.gameName }}</a></li>
 			</ul>
-
-
 			<div id="myTabContent" class="tab-content">
-
 				<div class="container-fluid">
 					<div id="scorePanel" class="panel panel-info lanoeltransition">
 						<div class="input-group panel-heading">
@@ -21,7 +18,7 @@
 						<div class="panel-body lanoelList">
 							<div class='panel-body ng-scope'>
 								<div class="ng-scope container-fluid">
-									<ul dnd-list="selectedRound.places" class="col-lg-4">
+									<ul dnd-list="selectedRound.places" class="col-lg-6">
 										<li ng-repeat="place in selectedRound.places" dnd-draggable="place" dnd-moved="selectedRound.places.splice($index, 1)" dnd-effect-allowed="move"
 											dnd-selected="selected = place" class="background-man">
 											<dnd-nodrag>
@@ -31,8 +28,8 @@
 														<div class="col-lg-2">
 															{{ $index + 1 }}
 														</div>
-														<div class="col-lg-2">
-															<b>{{place.person}}</b>
+														<div class="text-nowrap">
+															<b>{{place.participant.participantName}} ({{place.participant.participantDescription}})</b>
 														</div>
 														</h4>
 													</span>
@@ -40,7 +37,7 @@
 											</dnd-nodrag>
 										</li>
 										<li class="dndPlaceholder">
-											Drop any <strong>person</strong> here
+											Drop any <strong>team</strong> here
 										</li>
 									</ul>
 								</div>

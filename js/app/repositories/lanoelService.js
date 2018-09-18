@@ -11,7 +11,7 @@
     function lanoelService($http, $q, $sce, $location) {
         
         var lanoelServiceUrl = "http://lanoel.elasticbeanstalk.com";
-        var loginService = "https://test.accounts.omegasixcloud.net";
+        var loginService = "https://accounts.svc.omegasixcloud.net";
 
         var username;
         var password;
@@ -181,23 +181,26 @@
             $http({
                 method: 'GET',
                 url: lanoelServiceUrl + '/tournament/1',
+                headers : {
+                    'sessionid' : sessionStorage.getItem('sessionid')
+                }
             }).success(function (result) {
-                defer.resolve(result.data);
+                defer.resolve(result);
             }, function(result){
                 defer.reject(logout());
             });
             return defer.promise;
         }
 
-        function updateLanoelScore(selectedRound){
+        function updateLanoelScore(selectedRound, roundNumber){
             var defer = $q.defer();
             $http({
 				method: 'POST',
-				url: lanoelServiceUrl + '/tournament/1/' + selectedRound.roundNumber + '/updateScores',
+				url: lanoelServiceUrl + '/tournament/1/' + roundNumber + '/updateScores',
 				headers : {
                     'sessionid' : sessionStorage.getItem('sessionid')
                 },
-				data: selectedRound.places
+				data: selectedRound
             }).then(function(result){
                 defer.resolve(result.data);
             }, function(result){
